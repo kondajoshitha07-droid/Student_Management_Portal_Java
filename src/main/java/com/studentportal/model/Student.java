@@ -8,6 +8,7 @@ public class Student {
     private int year;
     private String email;
     private String phone;
+    private int attendance;
 
     public Student() {}
 
@@ -42,8 +43,11 @@ public class Student {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
+    public int getAttendance() { return attendance; }
+    public void setAttendance(int attendance) { this.attendance = attendance; }
+
     @Override
     public String toString() {
-        return "Student{rollNo='" + rollNo + "', name='" + name + "', department='" + department + "', year=" + year + ", email='" + email + "', phone='" + phone + "'}";
+        return "Student{rollNo='" + rollNo + "', name='" + name + "', department='" + department + "', year=" + year + ", email='" + email + "', phone='" + phone + "', attendance=" + attendance + "}";
     }
 }

@@ -7,44 +7,70 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>Student Management Portal</h1>
-                <p>Welcome back! Please enter your details.</p>
-            </div>
-            
-            <form id="loginForm" novalidate>
-                <div class="error-banner" id="serverError" style="display: none;"></div>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="icon-cap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                        </svg>
+                    </div>
+                    <h1>Student Management Portal</h1>
+                    <p>Welcome back. Please sign in to your account.</p>
+                </div>
                 
-                <div class="form-group role-selection">
-                    <label class="radio-label">
-                        <input type="radio" name="role" value="student" checked>
-                        <span>Student</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="role" value="admin">
-                        <span>Admin</span>
-                    </label>
-                </div>
+                <form id="loginForm" novalidate>
+                    <div class="error-banner" id="serverError" style="display: none;"></div>
+                    
+                    <div class="role-selection">
+                        <label class="radio-label">
+                            <input type="radio" name="role" value="student" checked>
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">Student</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="role" value="admin">
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">Admin</span>
+                        </label>
+                    </div>
 
-                <div class="form-group">
-                    <label for="username">Username / Roll No</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
-                    <span class="inline-error" id="usernameError" style="display: none;">Username cannot be empty</span>
-                </div>
+                    <div class="form-group floating">
+                        <input type="text" id="username" name="username" placeholder=" ">
+                        <label for="username">Username / Roll No</label>
+                        <span class="inline-error" id="usernameError" style="display: none;">Username cannot be empty</span>
+                    </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password">
-                    <span class="inline-error" id="passwordError" style="display: none;">Password cannot be empty</span>
-                </div>
+                    <div class="form-group floating">
+                        <input type="password" id="password" name="password" placeholder=" ">
+                        <label for="password">Password</label>
+                        <span class="inline-error" id="passwordError" style="display: none;">Password cannot be empty</span>
+                    </div>
 
-                <button type="submit" id="loginBtn" class="btn-primary">
-                    <span id="btnText">Sign In</span>
-                    <span id="btnLoader" class="loader" style="display: none;">Signing In...</span>
-                </button>
-            </form>
+                    <button type="submit" id="loginBtn" class="btn-primary">
+                        <span id="btnText">Sign In</span>
+                        <span id="btnLoader" class="loader" style="display: none;">Signing In...</span>
+                    </button>
+                </form>
+            </div>
+
+            <footer class="login-footer">
+                <h3>Student Management Portal</h3>
+                <h4>Academic Management System</h4>
+                <p>Simplifying student records, academic performance and attendance management through a modern digital platform.</p>
+                <div class="footer-bottom">
+                    <span>Developed by K Joshitha</span>
+                    <span>&copy; 2026</span>
+                </div>
+            </footer>
         </div>
     </div>
     

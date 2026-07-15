@@ -1,9 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/student.css">
 </head>
 <body>
-    <h1>Welcome Student</h1>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <h2>Student Portal</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="#" class="active">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="navLogout">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="welcome-banner">
+                <div>
+                    <h1 id="welcomeText">Welcome back 👋</h1>
+                    <p>Here's an overview of your academic performance and attendance.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Profile Card -->
+                <div class="card profile-card">
+                    <div class="card-header">
+                        <h3>Professional Profile</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-item">
+                            <span class="info-label">Roll Number</span>
+                            <span class="info-value" id="sRoll"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value" id="sName"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Department</span>
+                            <span class="info-value" id="sDept"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Year</span>
+                            <span class="info-value" id="sYear"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email Address</span>
+                            <span class="info-value" id="sEmail"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone Number</span>
+                            <span class="info-value" id="sPhone"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Cards -->
+                <div class="small-cards">
+                    <div class="card stat-card attendance-card">
+                        <div class="card-header">
+                            <h3>Attendance Progress</h3>
+                        </div>
+                        <div class="stat-body">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" id="sAttendanceBar" style="width: 100%;"></div>
+                                </div>
+                                <div class="stat-value" id="sAttendance">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card stat-card cgpa-card">
+                        <div class="card-header">
+                            <h3>Cumulative GPA</h3>
+                        </div>
+                        <div class="stat-body">
+                            <div class="cgpa-highlight">
+                                <div class="stat-value" id="sCgpa">0.0</div>
+                                <div class="cgpa-label">Out of 10.0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marks Card -->
+                <div class="card marks-card">
+                    <div class="card-header">
+                        <h3>Academic Marks</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="marks-table data-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Marks Achieved</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marksBody">
+                                <tr><td colspan="2">Loading marks...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/student.js"></script>
+    <script>
+        // Micro-interaction for attendance bar (simulated by checking mutation)
+        // Since I can't modify student.js, I use a small mutation observer here to sync the progress bar 
+        // to the text content without altering logic.
+        const targetNode = document.getElementById('sAttendance');
+        if (targetNode) {
+            const observer = new MutationObserver(mutations => {
+                const val = parseInt(targetNode.textContent);
+                if (!isNaN(val)) {
+                    document.getElementById('sAttendanceBar').style.width = val + '%';
+                }
+            });
+            observer.observe(targetNode, { characterData: true, childList: true, subtree: true });
+        }
+    </script>
 </body>
 </html>

@@ -62,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (data.success) {
+                localStorage.setItem('sessionId', data.sessionId);
+                localStorage.setItem('role', data.role);
                 if (data.role === 'admin') {
                     window.location.href = '/admin.html';
                 } else {

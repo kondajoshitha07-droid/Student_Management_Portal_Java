@@ -125,6 +125,11 @@ public class StudentDAO {
         student.setYear(rs.getInt("year"));
         student.setEmail(rs.getString("email"));
         student.setPhone(rs.getString("phone"));
+        try {
+            student.setAttendance(rs.getInt("attendance"));
+        } catch (SQLException ignored) {
+            // In case column is missing in older queries somehow
+        }
         return student;
     }
 }
