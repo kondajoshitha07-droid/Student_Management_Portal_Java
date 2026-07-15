@@ -22,7 +22,7 @@ public class StaticFileHandler implements HttpHandler {
         String requestPath = exchange.getRequestURI().getPath();
 
         if (requestPath.equals("/")) {
-            requestPath = "/pages/index.html";
+            requestPath = "/index.html";
         }
 
         Path filePath = Paths.get(rootDirectory + requestPath);

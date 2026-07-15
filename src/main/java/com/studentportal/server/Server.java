@@ -1,6 +1,7 @@
 package com.studentportal.server;
 
 import com.sun.net.httpserver.HttpServer;
+import com.studentportal.controller.LoginController;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,6 +14,7 @@ public class Server {
 
         server = HttpServer.create(new InetSocketAddress(8080), 0);
 
+        server.createContext("/login", new LoginController());
         server.createContext("/", new StaticFileHandler("frontend"));
 
         server.setExecutor(null);
