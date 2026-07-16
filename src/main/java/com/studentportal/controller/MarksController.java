@@ -37,13 +37,26 @@ public class MarksController implements HttpHandler {
     private void handleGet(HttpExchange exchange) throws IOException {
         String query = exchange.getRequestURI().getQuery();
         if (query != null && query.contains("rollNo=")) {
-            String rollNo = query.split("rollNo=")[1].split("&")[0];
-            rollNo = java.net.URLDecoder.decode(rollNo, StandardCharsets.UTF_8.name());
-            List<Mark> marks = marksDAO.getMarksByRollNo(rollNo);
-            JsonObject response = new JsonObject();
-            response.addProperty("success", true);
-            response.add("data", gson.toJsonTree(marks));
-            sendJsonResponse(exchange, 200, true, "Marks retrieved successfully", response);
+            String rollNo = "";
+            int semester = -1;
+            
+            String[] params = query.split("&");
+            for (String param : params) {
+                if (param.startsWith("rollNo=")) {
+                    rollNo = java.net.URLDecoder.decode(param.split("=")[1], StandardCharsets.UTF_8.name());
+                } else if (param.startsWith("semester=")) {
+                    semester = Integer.parseInt(param.split("=")[1]);
+                }
+            }
+            
+            List<Mark> marks;
+            if (semester != -1) {
+                marks = marksDAO.getMarksBySemester(rollNo, semester);
+            } else {
+                marks = marksDAO.getMarksByRollNo(rollNo);
+            }
+            
+            sendJsonResponse(exchange, 200, true, "Marks retrieved successfully", gson.toJsonTree(marks));
         } else {
             sendJsonResponse(exchange, 400, false, "rollNo required", null);
         }
@@ -60,7 +73,7 @@ public class MarksController implements HttpHandler {
             List<Mark> existing = marksDAO.getMarksByRollNo(mark.getRollNo());
             boolean exists = false;
             for (Mark m : existing) {
-                if (m.getSubjectName().equalsIgnoreCase(mark.getSubjectName())) {
+                if (m.getSubjectName().equalsIgnoreCase(mark.getSubjectName()) && m.getSemester() == mark.getSemester()) {
                     mark.setId(m.getId());
                     exists = true;
                     break;
@@ -82,7 +95,7 @@ public class MarksController implements HttpHandler {
         }
     }
 
-    private void sendJsonResponse(HttpExchange exchange, int statusCode, boolean success, String message, JsonObject data) throws IOException {
+    private void sendJsonResponse(HttpExchange exchange, int statusCode, boolean success, String message, com.google.gson.JsonElement data) throws IOException {
         JsonObject json = new JsonObject();
         json.addProperty("success", success);
         if (message != null) json.addProperty("message", message);

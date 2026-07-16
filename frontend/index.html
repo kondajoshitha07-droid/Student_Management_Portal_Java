@@ -37,15 +37,20 @@
                             <span class="radio-text">Student</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="role" value="admin">
+                            <input type="radio" name="role" value="faculty">
                             <span class="radio-custom"></span>
-                            <span class="radio-text">Admin</span>
+                            <span class="radio-text">Faculty</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="role" value="principal">
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">Principal</span>
                         </label>
                     </div>
 
                     <div class="form-group floating">
                         <input type="text" id="username" name="username" placeholder=" ">
-                        <label for="username">Username / Roll No</label>
+                        <label for="username">Roll No, Email or Username</label>
                         <span class="inline-error" id="usernameError" style="display: none;">Username cannot be empty</span>
                     </div>
 
@@ -57,8 +62,55 @@
 
                     <button type="submit" id="loginBtn" class="btn-primary">
                         <span id="btnText">Sign In</span>
-                        <span id="btnLoader" class="loader" style="display: none;">Signing In...</span>
+                        <div class="loader" id="btnLoader" style="display: none;"></div>
                     </button>
+                    
+                    <div class="register-link" style="text-align: center; margin-top: 20px;">
+                        <span style="color: var(--text-muted); font-size: 14px;">Don't have an account?</span>
+                        <a href="#" id="showRegisterBtn" style="color: var(--primary); font-weight: 600; text-decoration: none; margin-left: 4px;">Create Account</a>
+                    </div>
+                </form>
+
+                <form id="registerForm" class="auth-form" style="display: none;">
+                    <div class="form-group floating">
+                        <input type="text" id="regName" placeholder=" " required>
+                        <label>Full Name</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="text" id="regRollNo" placeholder=" " required>
+                        <label>Roll Number</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="email" id="regEmail" placeholder=" " required>
+                        <label>Email Address</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="text" id="regDept" placeholder=" " required>
+                        <label>Department (e.g. CSE)</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="number" id="regYear" placeholder=" " required>
+                        <label>Year</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="password" id="regPassword" placeholder=" " required>
+                        <label>Password</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="password" id="regConfirmPassword" placeholder=" " required>
+                        <label>Confirm Password</label>
+                        <span class="inline-error" id="regPasswordError" style="display: none;">Passwords do not match</span>
+                    </div>
+
+                    <button type="submit" id="registerBtn" class="btn-primary">
+                        <span id="regBtnText">Register</span>
+                        <div class="loader" id="regBtnLoader" style="display: none;"></div>
+                    </button>
+
+                    <div class="register-link" style="text-align: center; margin-top: 20px;">
+                        <span style="color: var(--text-muted); font-size: 14px;">Already have an account?</span>
+                        <a href="#" id="showLoginBtn" style="color: var(--primary); font-weight: 600; text-decoration: none; margin-left: 4px;">Sign In</a>
+                    </div>
                 </form>
             </div>
 
@@ -67,7 +119,7 @@
                 <h4>Academic Management System</h4>
                 <p>Simplifying student records, academic performance and attendance management through a modern digital platform.</p>
                 <div class="footer-bottom">
-                    <span>Developed by K Joshitha</span>
+                    <span>Developed by joshitha</span>
                     <span>&copy; 2026</span>
                 </div>
             </footer>

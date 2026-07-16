@@ -39,7 +39,7 @@
             <section id="sectionDashboard" class="content-section active">
                 <header class="welcome-banner">
                     <div>
-                        <h1>Welcome, Administrator 👋</h1>
+                        <h1>Welcome, Faculty 👋</h1>
                         <p>Here is your academic overview for today.</p>
                     </div>
                 </header>
@@ -74,6 +74,59 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="grid-2-col" style="margin-top: 24px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Student Activity</h3>
+                        </div>
+                        <div class="card-content" style="padding: 16px;">
+                            <ul style="list-style: none;">
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E2E8F0;">• <strong>Alice</strong> submitted assignment for Data Structures.</li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E2E8F0;">• <strong>Bob</strong> missed today's lecture.</li>
+                                <li style="padding: 8px 0;">• <strong>Charlie</strong> scored 95/100 in Algorithms.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="card-content" style="padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                            <button id="btnUploadSyllabus" class="btn-secondary">Upload Syllabus</button>
+                            <button id="btnSendAnnouncement" class="btn-secondary">Send Announcement</button>
+                            <button id="btnViewDefaulters" class="btn-secondary">View Defaulters</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Department Distribution & Top Performers</h3>
+                        </div>
+                        <div class="card-content" style="padding: 16px;">
+                            <p style="margin-bottom: 12px;"><strong>Top Performers:</strong> Student 1, Student 2</p>
+                            <div style="width: 100%; background: #E2E8F0; height: 16px; border-radius: 8px; overflow: hidden; display: flex;">
+                                <div style="width: 60%; background: #3B82F6;" title="CSE"></div>
+                                <div style="width: 40%; background: #10B981;" title="ECE"></div>
+                            </div>
+                            <div style="display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: #64748B;">
+                                <span><span style="display:inline-block; width:8px; height:8px; background:#3B82F6; border-radius:50%;"></span> CSE (60%)</span>
+                                <span><span style="display:inline-block; width:8px; height:8px; background:#10B981; border-radius:50%;"></span> ECE (40%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Updates & Students Added Today</h3>
+                        </div>
+                        <div class="card-content" style="padding: 16px;">
+                            <p style="margin-bottom: 8px;"><strong>Students Added Today:</strong> 0</p>
+                            <ul style="list-style: none; font-size: 14px; color: #1E293B;">
+                                <li>- System maintenance scheduled for weekend.</li>
+                                <li>- Mid-term syllabus published.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <section id="sectionStudents" class="content-section">
@@ -88,7 +141,7 @@
                             <input type="text" id="searchInput" placeholder="Search students...">
                             <button id="searchBtn" class="btn-secondary">Search</button>
                         </div>
-                        <button id="addStudentBtn" class="btn-primary">
+                        <button id="addStudentBtn" class="btn-primary" style="display:none;">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             Add Student
                         </button>
@@ -163,6 +216,10 @@
                         </div>
                         
                         <div class="marks-add-bar">
+                            <div class="form-group">
+                                <label>Semester</label>
+                                <input type="number" id="markSemester" min="1" max="8" placeholder="e.g. 1">
+                            </div>
                             <div class="form-group">
                                 <label>Subject</label>
                                 <input type="text" id="markSubject" placeholder="e.g. Data Structures">

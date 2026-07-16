@@ -82,6 +82,23 @@ public class StudentDAO {
         return null;
     }
 
+    public Student getStudentByEmail(String email) {
+        String sql = "SELECT * FROM students WHERE email = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToStudent(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM students";
@@ -98,13 +115,14 @@ public class StudentDAO {
         return students;
     }
 
-    public List<Student> searchStudentsByName(String name) {
+    public List<Student> searchStudentsByName(String query) {
         List<Student> students = new ArrayList<>();
-        String sql = "SELECT * FROM students WHERE name LIKE ?";
+        String sql = "SELECT * FROM students WHERE name LIKE ? OR roll_no LIKE ?";
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
              
-            stmt.setString(1, "%" + name + "%");
+            stmt.setString(1, "%" + query + "%");
+            stmt.setString(2, "%" + query + "%");
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     students.add(mapResultSetToStudent(rs));

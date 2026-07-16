@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principal Dashboard</title>
+    <link rel="stylesheet" href="css/principal.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <h2>Principal Portal</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        Global Overview
+                    </a></li>
+                    <li><a href="#" id="navLogout">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                        Logout
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="welcome-banner">
+                <div>
+                    <h1>Welcome, Principal 👋</h1>
+                    <p>Institutional overview and academic analytics.</p>
+                </div>
+            </header>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                    <div class="stat-info">
+                        <h3>Total Students</h3>
+                        <p class="stat-value">1,452</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                    <div class="stat-info">
+                        <h3>Total Faculty</h3>
+                        <p class="stat-value">84</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-emerald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                    <div class="stat-info">
+                        <h3>Departments</h3>
+                        <p class="stat-value">6</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                    <div class="stat-info">
+                        <h3>Avg Attendance</h3>
+                        <p class="stat-value">88.5%</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                    <div class="stat-info">
+                        <h3>Average CGPA</h3>
+                        <p class="stat-value">7.84</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
+                    <div class="stat-info">
+                        <h3>Students Added</h3>
+                        <p class="stat-value">12</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="card recent-activity">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="activity-list">
+                            <li><span class="dot dot-blue"></span> <strong>Faculty Alice</strong> updated marks for Data Structures (CSE). <span class="time">10 mins ago</span></li>
+                            <li><span class="dot dot-emerald"></span> <strong>Faculty Bob</strong> submitted daily attendance for ECE. <span class="time">1 hour ago</span></li>
+                            <li><span class="dot dot-purple"></span> <strong>Faculty Charlie</strong> generated midterm reports. <span class="time">2 hours ago</span></li>
+                            <li><span class="dot dot-rose"></span> <strong>System</strong> performed daily backup successfully. <span class="time">4 hours ago</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card dept-summary">
+                    <div class="card-header">
+                        <h3>Department Summary</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="dept-progress">
+                            <div class="dept-info"><span>CSE (Computer Science)</span> <span>540 Students</span></div>
+                            <div class="progress-bg"><div class="progress-fill" style="width: 40%; background: #3B82F6;"></div></div>
+                        </div>
+                        <div class="dept-progress">
+                            <div class="dept-info"><span>ECE (Electronics)</span> <span>420 Students</span></div>
+                            <div class="progress-bg"><div class="progress-fill" style="width: 30%; background: #10B981;"></div></div>
+                        </div>
+                        <div class="dept-progress">
+                            <div class="dept-info"><span>ME (Mechanical)</span> <span>280 Students</span></div>
+                            <div class="progress-bg"><div class="progress-fill" style="width: 20%; background: #F59E0B;"></div></div>
+                        </div>
+                        <div class="dept-progress">
+                            <div class="dept-info"><span>CE (Civil)</span> <span>212 Students</span></div>
+                            <div class="progress-bg"><div class="progress-fill" style="width: 10%; background: #8B5CF6;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card top-performers">
+                    <div class="card-header">
+                        <h3>Top Performing Students</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="simple-table">
+                            <thead><tr><th>Roll No</th><th>Name</th><th>Dept</th><th>CGPA</th></tr></thead>
+                            <tbody>
+                                <tr><td>CSE001</td><td>John Doe</td><td>CSE</td><td><span class="badge badge-success">9.8</span></td></tr>
+                                <tr><td>ECE042</td><td>Jane Smith</td><td>ECE</td><td><span class="badge badge-success">9.7</span></td></tr>
+                                <tr><td>ME015</td><td>Robert Chen</td><td>ME</td><td><span class="badge badge-success">9.5</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card announcements">
+                    <div class="card-header">
+                        <h3>Latest Announcements</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="announcement-item">
+                            <h4>End Semester Examinations</h4>
+                            <p>Scheduled to begin from the 15th of next month. All faculty must finalize internals.</p>
+                            <span class="date">Oct 12, 2026</span>
+                        </div>
+                        <div class="announcement-item">
+                            <h4>New Curriculum Guidelines</h4>
+                            <p>UGC has released new guidelines for credit distribution starting next academic year.</p>
+                            <span class="date">Oct 10, 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card upcoming-events">
+                    <div class="card-header">
+                        <h3>Upcoming Events & Recent Logins</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="activity-list">
+                            <li><strong>Event:</strong> Tech Symposium 2026 <span class="time">Next Week</span></li>
+                            <li><strong>Event:</strong> Faculty Development Program <span class="time">In 2 weeks</span></li>
+                            <li style="border-top: 1px solid var(--border); padding-top: 8px;"><strong>Login:</strong> Alice (Faculty) <span class="time">5 mins ago</span></li>
+                            <li><strong>Login:</strong> Bob (Faculty) <span class="time">12 mins ago</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card quick-actions">
+                    <div class="card-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+                    <div class="card-body" style="display: flex; flex-direction: column; gap: 8px;">
+                        <button class="btn-primary" style="padding: 10px; border-radius: 6px; border: none; background: var(--primary); color: white; cursor: pointer;">Generate Academic Report</button>
+                        <button class="btn-secondary" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: white; cursor: pointer;">Manage Faculties</button>
+                        <button class="btn-secondary" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: white; cursor: pointer;">System Settings</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.getElementById('navLogout').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = '/index.html';
+        });
+    </script>
+</body>
+</html>

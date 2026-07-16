@@ -10,10 +10,17 @@ public class LoginService {
     private final StudentDAO studentDAO = new StudentDAO();
 
     public boolean authenticate(String role, String username, String password) {
-        if ("admin".equalsIgnoreCase(role)) {
-            return adminDAO.validateLogin(username, password);
+        if ("principal".equalsIgnoreCase(role)) {
+            return adminDAO.validatePrincipal(username, password);
+        } else if ("faculty".equalsIgnoreCase(role)) {
+            return adminDAO.validateFaculty(username, password);
         } else if ("student".equalsIgnoreCase(role)) {
-            Student student = studentDAO.getStudentByRollNo(username);
+            Student student;
+            if (username.contains("@")) {
+                student = studentDAO.getStudentByEmail(username);
+            } else {
+                student = studentDAO.getStudentByRollNo(username);
+            }
             if (student != null) {
                 return BCrypt.checkpw(password, student.getPasswordHash());
             }

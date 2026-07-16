@@ -162,6 +162,9 @@ button { display: inline-flex; align-items: center; justify-content: center; gap
 .btn-secondary:hover { background: #F1F5F9; }
 .btn-secondary:active { transform: scale(0.97); }
 
+/* Hide Delete Button for Faculty Dashboard */
+.btn-danger { display: none !important; }
+
 /* Search Bar */
 .search-bar {
     display: flex;

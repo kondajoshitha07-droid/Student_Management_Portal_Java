@@ -8,6 +8,64 @@ document.addEventListener('DOMContentLoaded', () => {
     const sectionStudents = document.getElementById('sectionStudents');
     const sectionMarks = document.getElementById('sectionMarks');
 
+    const role = localStorage.getItem('role');
+    if (role === 'faculty') {
+        const addBtn = document.getElementById('addStudentBtn');
+        if (addBtn) addBtn.style.display = 'none';
+    } else {
+        const addBtn = document.getElementById('addStudentBtn');
+        if (addBtn) addBtn.style.display = 'flex';
+    }
+    
+    // Update Welcome Banner
+    const welcomeHeader = document.querySelector('.welcome-banner h1');
+    if (welcomeHeader) {
+        welcomeHeader.textContent = role === 'principal' ? 'Welcome, Principal 👋' : 'Welcome, Faculty 👋';
+    }
+
+    // Quick Actions
+    const btnUploadSyllabus = document.getElementById('btnUploadSyllabus');
+    const btnSendAnnouncement = document.getElementById('btnSendAnnouncement');
+    const btnViewDefaulters = document.getElementById('btnViewDefaulters');
+
+    if (btnUploadSyllabus) {
+        btnUploadSyllabus.addEventListener('click', () => {
+            alert("Demo Feature\nSyllabus uploaded successfully.");
+        });
+    }
+
+    if (btnSendAnnouncement) {
+        btnSendAnnouncement.addEventListener('click', () => {
+            const title = prompt("Enter announcement title:");
+            if (title) {
+                const msg = prompt("Enter announcement message:");
+                if (msg) {
+                    alert("Announcement sent successfully.");
+                }
+            }
+        });
+    }
+
+    if (btnViewDefaulters) {
+        btnViewDefaulters.addEventListener('click', async () => {
+            try {
+                const res = await fetch('/students');
+                const data = await res.json();
+                if (data.success) {
+                    const defaulters = data.data.filter(s => s.attendance < 75);
+                    if (defaulters.length === 0) {
+                        alert("No defaulters found.");
+                    } else {
+                        const list = defaulters.map(s => `${s.name} (${s.rollNo}) - ${s.attendance}%`).join("\n");
+                        alert("Defaulters (Attendance < 75%):\n\n" + list);
+                    }
+                }
+            } catch(e) {
+                alert("Error fetching defaulters");
+            }
+        });
+    }
+
     function switchSection(activeNav, activeSection) {
         [navDashboard, navStudents, navMarks].forEach(n => n.classList.remove('active'));
         [sectionDashboard, sectionStudents, sectionMarks].forEach(s => s.classList.remove('active'));
@@ -68,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let isEditing = false;
 
+    let allStudents = [];
+
     async function loadStudents(query = '') {
         try {
             let url = '/students';
@@ -75,7 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch(url);
             const data = await res.json();
             
-            if (data.success) renderTable(data.data);
+            if (data.success) {
+                allStudents = data.data;
+                renderTable(allStudents);
+            }
         } catch (err) { console.error(err); }
     }
 
@@ -87,6 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         students.forEach(student => {
             const tr = document.createElement('tr');
+            let actionHtml = `<button class="btn-edit" onclick='editStudent("${escapeHTML(student.rollNo)}")'>Edit</button>`;
+            if (localStorage.getItem('role') !== 'faculty') {
+                actionHtml += `<button class="btn-danger" onclick='deleteStudent("${escapeHTML(student.rollNo)}")'>Delete</button>`;
+            }
             tr.innerHTML = `
                 <td>${escapeHTML(student.rollNo)}</td>
                 <td>${escapeHTML(student.name)}</td>
@@ -94,9 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${student.year}</td>
                 <td>${escapeHTML(student.email || '')}</td>
                 <td>${escapeHTML(student.phone || '')}</td>
-                <td class="actions-cell">
-                    <button class="btn-edit" onclick='editStudent(${JSON.stringify(student).replace(/'/g, "&apos;")})'>Edit</button>
-                    <button class="btn-danger" onclick='deleteStudent("${escapeHTML(student.rollNo)}")'>Delete</button>
+                <td>
+                    <div class="action-buttons">
+                        ${actionHtml}
+                    </div>
                 </td>
             `;
             studentTableBody.appendChild(tr);
@@ -126,7 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { slidePanelOverlay.style.display = 'none'; studentForm.reset(); }, 300);
     }
 
-    document.getElementById('addStudentBtn').addEventListener('click', () => openPanel('Add Student', false));
+    const addBtn = document.getElementById('addStudentBtn');
+    if (addBtn) {
+        addBtn.addEventListener('click', () => openPanel('Add Student', false));
+    }
     closePanelBtn.addEventListener('click', closePanel);
     slidePanelOverlay.addEventListener('click', closePanel);
 
@@ -155,7 +226,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) { panelError.textContent = 'Network error'; panelError.style.display = 'block'; }
     });
 
-    window.editStudent = function(student) {
+    window.editStudent = function(rollNo) {
+        const student = allStudents.find(s => s.rollNo === rollNo);
+        if (!student) return;
+        
         openPanel('Edit Student', true);
         formRollNo.value = student.rollNo;
         document.getElementById('formName').value = student.name;
@@ -194,27 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('editAttendance').value = student.attendance;
                 document.getElementById('studentInfoCard').style.display = 'block';
 
-document.getElementById('studentName').textContent =
-    student.name;
-
-document.getElementById('studentRollNo').textContent =
-    student.rollNo;
-
-document.getElementById('studentDepartment').textContent =
-    student.department;
-
-document.getElementById('studentYear').textContent =
-    student.year;
-
-document.getElementById('studentEmail').textContent =
-    student.email;
+                document.getElementById('studentName').textContent = student.name;
+                document.getElementById('studentRollNo').textContent = student.rollNo;
+                document.getElementById('studentDepartment').textContent = student.department;
+                document.getElementById('studentYear').textContent = student.year;
+                document.getElementById('studentEmail').textContent = student.email;
                 loadAdminMarks(student.rollNo);
             } else {
                 alert('Student not found');
-
-document.getElementById('marksContainer').style.display='none';
-
-document.getElementById('studentInfoCard').style.display='none';
+                document.getElementById('marksContainer').style.display='none';
+                document.getElementById('studentInfoCard').style.display='none';
             }
         } catch(e) { console.error(e); }
     });
@@ -226,30 +289,35 @@ document.getElementById('studentInfoCard').style.display='none';
             const tbody = document.getElementById('adminMarksBody');
             tbody.innerHTML = '';
             
-            if (data.success && data.data && data.data.data) {
+            if (data.success && data.data) {
+                const marksArray = Array.isArray(data.data) ? data.data : (data.data.data || []);
+                if (marksArray.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="2">No marks yet</td></tr>';
+                    return;
+                }
 
-    const marks = data.data.data;
+                const grouped = {};
+                marksArray.forEach(m => {
+                    if (!grouped[m.semester]) grouped[m.semester] = [];
+                    grouped[m.semester].push(m);
+                });
 
-    if (marks.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="2">No marks yet</td></tr>';
-        return;
-    }
-
-    marks.forEach(m => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${escapeHTML(m.subjectName)}</td><td>${m.marks}</td>`;
-        tbody.appendChild(tr);
-    });
-}
+                Object.keys(grouped).sort((a,b) => parseInt(a) - parseInt(b)).forEach(sem => {
+                    const headerRow = document.createElement('tr');
+                    headerRow.style.backgroundColor = '#F1F5F9';
+                    headerRow.innerHTML = `<td colspan="2" style="font-weight:bold; color:#334155; padding-top: 12px; padding-bottom: 12px;">Semester ${sem}</td>`;
+                    tbody.appendChild(headerRow);
+                    
+                    grouped[sem].forEach(m => {
+                        const subjectDisplay = m.subjectName.replace(/\s*\(Sem\s*\d+\)/i, '');
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `<td>${escapeHTML(subjectDisplay)}</td><td>${m.marks}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                });
+            }
         } catch (e) { console.error(e); }
     }
-
-    document.getElementById("studentInfo").innerHTML = `
-    <h3>${student.name}</h3>
-    <p><strong>Roll No:</strong> ${student.rollNo}</p>
-    <p><strong>Department:</strong> ${student.department}</p>
-    <p><strong>Year:</strong> ${student.year}</p>
-    `;
 
     document.getElementById('saveAttendanceBtn').addEventListener('click', async () => {
         if (!currentMarksRollNo) return;
@@ -268,15 +336,21 @@ document.getElementById('studentInfoCard').style.display='none';
 
     document.getElementById('addMarkBtn').addEventListener('click', async () => {
         if (!currentMarksRollNo) return;
-        const sub = document.getElementById('markSubject').value.trim();
-        const val = document.getElementById('markValue').value;
-        if (!sub || !val) return;
+        const semester = parseInt(document.getElementById('markSemester').value);
+        const subject = document.getElementById('markSubject').value.trim();
+        const marks = parseInt(document.getElementById('markValue').value);
 
+        if (!subject || isNaN(marks)) {
+            alert('Please provide valid subject and marks');
+            return;
+        }
+
+        const payload = { rollNo: currentMarksRollNo, semester: semester, subjectName: subject, marks: marks };
         try {
             const res = await fetch('/api/marks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ rollNo: currentMarksRollNo, subjectName: sub, marks: parseInt(val, 10) })
+                body: JSON.stringify(payload)
             });
             const data = await res.json();
             if (data.success) {
